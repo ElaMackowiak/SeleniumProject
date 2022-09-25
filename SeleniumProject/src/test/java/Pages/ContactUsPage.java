@@ -1,14 +1,16 @@
 package Pages;
 
+import Base.BaseTest;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 
 import java.io.File;
 
-public class ContactUsPage {
+public class ContactUsPage extends BaseTest {
 
     @FindBy(id = "id_contact")
     private WebElement subjectHeading_select;
@@ -67,11 +69,13 @@ public class ContactUsPage {
     }
 
     public void clickSendButton() {
+        wait.until(ExpectedConditions.elementToBeClickable(send_button));    // -> przed rozpoczęciem interakcji
         send_button.click();
         System.out.println("Formularz został wysłany");
     }
 
     public String getConfirmationMessage() {
+        wait.until(ExpectedConditions.textToBePresentInElement(confirmationMessage, "Your message has been successfully sent to our team."));
         String textmessage = confirmationMessage.getText();
         System.out.println("Confirmation message: " + textmessage);
         return textmessage;
